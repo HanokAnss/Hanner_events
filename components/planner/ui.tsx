@@ -1,4 +1,7 @@
+'use client';
+
 import type { ReactNode } from 'react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 
 export const cx = (...a: (string | false | undefined | null)[]) => a.filter(Boolean).join(' ');
 
@@ -9,11 +12,14 @@ export function OptionCard({
   selected, onClick, title, desc, aside,
 }: { selected: boolean; onClick: () => void; title: string; desc?: string; aside?: ReactNode }) {
   return (
-    <button
+    <motion.button
       type="button"
       role="radio"
       aria-checked={selected}
       onClick={onClick}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 26 }}
       className={cx(
         'flex w-full items-start justify-between gap-4 rounded-2xl border p-4 text-left transition-colors',
         selected ? 'border-[var(--accent)] bg-white/10' : 'border-white/12 bg-white/[0.03] hover:bg-white/[0.07]',
@@ -24,7 +30,7 @@ export function OptionCard({
         {desc && <span className="mt-1 block text-sm text-white/60">{desc}</span>}
       </span>
       {aside && <span className="shrink-0 text-sm text-white/70">{aside}</span>}
-    </button>
+    </motion.button>
   );
 }
 
@@ -32,7 +38,7 @@ export function CheckRow({
   checked, onChange, label, aside,
 }: { checked: boolean; onChange: (v: boolean) => void; label: string; aside?: string }) {
   return (
-    <label className={cx('flex cursor-pointer items-center justify-between gap-3 rounded-xl border px-4 py-3', checked ? 'border-[var(--accent)] bg-white/10' : 'border-white/12')}>
+    <label className={cx('flex cursor-pointer items-center justify-between gap-3 rounded-xl border px-4 py-3 transition-colors', checked ? 'border-[var(--accent)] bg-white/10' : 'border-white/12')}>
       <span className="flex items-center gap-3">
         <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-[var(--accent)]" />
         {label}
@@ -47,27 +53,38 @@ export function Field({ label, error, children }: { label: string; error?: strin
     <label className="block">
       <span className="mb-1.5 block text-sm text-white/70">{label}</span>
       {children}
-      {error && <span role="alert" className="mt-1.5 block text-sm text-[#ff8a8a]">{error}</span>}
+      {error && (
+        <motion.span role="alert" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-1.5 block text-sm text-[#ff8a8a]">
+          {error}
+        </motion.span>
+      )}
     </label>
   );
 }
 
-export function PrimaryButton({ children, ...p }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function PrimaryButton({ children, ...p }: HTMLMotionProps<'button'>) {
   return (
-    <button
+    <motion.button
+      whileHover={p.disabled ? undefined : { scale: 1.04 }}
+      whileTap={p.disabled ? undefined : { scale: 0.96 }}
       {...p}
       className="rounded-full px-7 py-3 font-semibold text-[#14121f] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
       style={{ background: 'var(--accent)' }}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 
-export function GhostButton({ children, ...p }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function GhostButton({ children, ...p }: HTMLMotionProps<'button'>) {
   return (
-    <button {...p} className="rounded-full border border-white/25 px-6 py-3 font-semibold transition-colors hover:bg-white/10">
+    <motion.button
+      whileHover={{ scale: 1.04 }}
+      whileTap={{ scale: 0.96 }}
+      {...p}
+      className="rounded-full border border-white/25 px-6 py-3 font-semibold transition-colors hover:bg-white/10"
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }
