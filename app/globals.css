@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #ff9f5a;
+  --bg: #16132a;
+  --ui-accent: #ff9f5a; /* set live by the pages; used by the cursor and scrollbar */
+}
+
+html,
+body {
+  background: #16132a;
+  color: #f4f1ff;
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Scrollbar: slim, themed, fattens on hover ───────────────────────── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ui-accent) transparent;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--ui-accent);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { border-width: 2px; }
+
+/* On the 3D home page the native bar is replaced by the animated ScrollRail. */
+html.immersive { scrollbar-width: none; }
+html.immersive::-webkit-scrollbar { display: none; }
+
+/* ── Cursor: hide the native one only when the custom one is running ── */
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor,
+  body.has-cursor * { cursor: none !important; }
+  body.has-cursor input,
+  body.has-cursor textarea { cursor: text !important; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
