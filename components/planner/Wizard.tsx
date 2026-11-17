@@ -45,7 +45,9 @@ export default function Wizard() {
   // Cursor and scrollbar follow the chosen event's colour.
   useEffect(() => {
     document.documentElement.style.setProperty('--ui-accent', accent);
-    return () => document.documentElement.style.removeProperty('--ui-accent');
+    return () => {
+      document.documentElement.style.removeProperty('--ui-accent');
+    };
   }, [accent]);
 
   const { food } = b.services;
