@@ -9,6 +9,7 @@ import { sampleEased } from '@/lib/color';
 import { POSES } from '@/lib/poses';
 import { useSceneStore } from '@/lib/sceneStore';
 import { Church, Community, Concert, Party } from './dioramas';
+import BrandFace from './BrandFace';
  
 const GLB_URL = '/models/event-cube.glb';
  
@@ -128,6 +129,7 @@ export default function EventCube() {
       <group ref={rig}>
         <group ref={spin}>
           {glb ? <GlbBody /> : <ProceduralBody />}
+          <BrandFace />
         </group>
       </group>
     </>
