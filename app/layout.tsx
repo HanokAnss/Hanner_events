@@ -7,7 +7,7 @@ const display = Unbounded({ subsets: ['latin'], variable: '--font-display' });
 const body = DM_Sans({ subsets: ['latin'], variable: '--font-body' });
 
 export const metadata: Metadata = {
-  title: 'Fourfold Events: concerts, parties, church and community gatherings',
+  title: 'Hanner Events: concerts, parties, church and community gatherings',
   description:
     'Plan an event in minutes. Pick the event, headcount, food, DJ and decor, see the crew and price, then pay by card, UPI or cash.',
 };

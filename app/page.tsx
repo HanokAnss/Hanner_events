@@ -1,14 +1,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import MobileStack from '@/components/home/MobileStack';
 
-// The WebGL experience is only ever loaded on desktop-width screens.
-const DesktopExperience = dynamic(() => import('@/components/home/DesktopExperience'), { ssr: false });
+// The WebGL landing is client-only. While its code loads, show the same dark backdrop the loader uses.
+const Landing = dynamic(() => import('@/components/home/Landing'), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-[#0e0c1d]" />,
+});
 
 export default function Home() {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  if (isDesktop === null) return <div className="min-h-screen" />;
-  return isDesktop ? <DesktopExperience /> : <MobileStack />;
+  return <Landing />;
 }

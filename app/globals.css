@@ -61,3 +61,14 @@ html.immersive::-webkit-scrollbar { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
+/* ── Loader cube ─────────────────────────────────────────────────────── */
+.l-scene { width: 96px; height: 96px; perspective: 700px; }
+.l-cube { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: l-spin 5s linear infinite; }
+.l-face {
+  position: absolute; inset: 0;
+  border: 1.5px solid var(--c);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  box-shadow: inset 0 0 22px color-mix(in srgb, var(--c) 45%, transparent), 0 0 14px color-mix(in srgb, var(--c) 30%, transparent);
+}
+@keyframes l-spin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
+@media (prefers-reduced-motion: reduce) { .l-cube { animation-duration: 24s; } }
